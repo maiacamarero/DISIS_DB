@@ -1,0 +1,76 @@
+---
+title: Cuervix
+---
+erDiagram
+    CONTENT ||--|{ CONTENT_TYPE : "1-n"
+    CONTENT{
+        long id PK
+        string name
+        long content_type_id FK
+    }
+
+    CONTENT_TYPE ||--|{ CONTENT_CATEGORY : "1-n"
+    CONTENT_TYPE{
+        long id PK
+        string name
+        long category_id FK
+    }
+
+    CONTENT_CATEGORY{
+        long id PK
+        string name
+    }
+
+    CONTENT_TYPE }|--|{ CONTENT_TYPE_ATTRIBUTE : "n-n"
+    CONTENT_ATTRIBUTE }|--|{ CONTENT_TYPE_ATTRIBUTE : "n-n"
+
+    CONTENT_ATTRIBUTE{
+        long id PK
+        string value
+    }
+
+    CONTENT_TYPE_ATTRIBUTE{
+        long content_type_id PK, FK
+        long attribute_id PK, FK
+    }
+
+
+    CONTENT_VALUE }|--|{ CONTENT : "n-1 o n-n"
+    CONTENT_VALUE{
+        long id PK
+        long attribute_id FK
+        long content_id FK
+        varchar value
+    }
+    CONTENT_VALUE }|--|{ CONTENT_ATTRIBUTE : "1-n o n-n"
+
+    USER{
+        long id PK
+        string DNI
+        long subscription_id FK
+    }
+
+    USER_VALUE }|--|{ USER : "n-n"
+    USER_VALUE{
+        long id PK
+        long user_id FK
+        long attribute_id FK
+        varchar value
+    }
+    USER_VALUE }|--|{ USER_ATTRIBUTE : "n-n"
+
+    USER_ATTRIBUTE{
+        long id PK
+        string value
+    }
+
+    USER ||--|{ SUBSCRIPTION : ""
+    SUBSCRIPTION{
+        long id PK
+        long subscription_type_id FK
+        long subscription_status_id FK
+
+    }
+
+
+
