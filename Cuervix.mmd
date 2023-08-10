@@ -9,6 +9,26 @@ erDiagram
         long content_type_id FK
     }
 
+    SUB_CONTENT ||--|{ CONTENT : ""
+    SUB_CONTENT{
+        long id PK
+        long content_id FK
+        string name
+    }
+
+    SUB_CONTENT_SUB_CONTENT_VALUE }|--|{ SUB_CONTENT_VALUE :""
+    SUB_CONTENT_SUB_CONTENT_VALUE }|--|{ SUB_CONTENT :""
+    SUB_CONTENT_SUB_CONTENT_VALUE{
+        long sub_content_id PK, FK
+        long sub_content_value_id PK, FK
+    }
+
+    SUB_CONTENT_VALUE{
+        long id PK
+        varchar value
+    }
+
+
     CONTENT_TYPE ||--|{ CONTENT_CATEGORY : "1-n"
     CONTENT_TYPE{
         long id PK
@@ -35,14 +55,7 @@ erDiagram
     }
 
 
-    CONTENT_VALUE }|--|{ CONTENT : "n-1 o n-n"
-    CONTENT_VALUE{
-        long id PK
-        long attribute_id FK
-        long content_id FK
-        varchar value
-    }
-    CONTENT_VALUE }|--|{ CONTENT_ATTRIBUTE : "1-n o n-n"
+
 
     USER{
         long id PK
@@ -64,11 +77,66 @@ erDiagram
         string value
     }
 
+    CONTENT_VALUE }|--|{ CONTENT : "n-1 o n-n"
+    CONTENT_VALUE{
+        long id PK
+        long attribute_id FK
+        long content_id FK
+        varchar value
+    }
+    CONTENT_VALUE }|--|{ CONTENT_ATTRIBUTE : "1-n o n-n"
+
     USER ||--|{ SUBSCRIPTION : ""
     SUBSCRIPTION{
         long id PK
         long subscription_type_id FK
         long subscription_status_id FK
+
+    }
+
+    SUBSCRIPTION ||--|{ SUBSCRIPTION_STATUS : ""
+    SUBSCRIPTION_STATUS{
+        long id PK
+        string value
+    }
+
+    SUBSCRIPTION ||--|{ SUBSCRIPTION_TYPE : ""
+    SUBSCRIPTION_TYPE{
+        long id PK
+        string name
+        int quantity
+        long content_limit_id FK
+    }
+
+    CONTENT_LIMIT ||--|{ SUBSCRIPTION_TYPE : ""
+    CONTENT_LIMIT{
+        long id PK
+        int quantity
+        long content_type_id FK
+    }
+
+    USER_LOG ||--|{ SUB_CONTENT : ""
+    USER_LOG ||--|{ CONTENT : ""
+    USER_LOG ||--|{ USER : ""
+    USER_LOG{
+        long id PK
+        long user_id FK
+        long content_id FK
+        long sub_content_id FK
+        Date date
+    }
+
+    HISTORY ||--|{ SUB_CONTENT : ""
+    HISTORY ||--|{ CONTENT : ""
+    HISTORY ||--|{ USER : ""
+    HISTORY{
+        long id PK
+        long user_id FK
+        long content_id FK
+        long sub_content_id FK
+        Date start_date
+        Date final_date
+        int progress_percentage
 
     }
 
