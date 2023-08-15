@@ -2,7 +2,7 @@
 title: Cuervix
 ---
 erDiagram
-    CONTENT ||--|{ CONTENT_TYPE : "1-n"
+    CONTENT ||--|{ CONTENT_TYPE : ""
     CONTENT{
         long id PK
         string name
@@ -29,7 +29,7 @@ erDiagram
     }
 
 
-    CONTENT_TYPE ||--|{ CONTENT_CATEGORY : "1-n"
+    CONTENT_TYPE ||--|{ CONTENT_CATEGORY : ""
     CONTENT_TYPE{
         long id PK
         string name
@@ -41,8 +41,8 @@ erDiagram
         string name
     }
 
-    CONTENT_TYPE }|--|{ CONTENT_TYPE_ATTRIBUTE : "n-n"
-    CONTENT_ATTRIBUTE }|--|{ CONTENT_TYPE_ATTRIBUTE : "n-n"
+    CONTENT_TYPE }|--|{ CONTENT_TYPE_ATTRIBUTE : ""
+    CONTENT_ATTRIBUTE }|--|{ CONTENT_TYPE_ATTRIBUTE : ""
 
     CONTENT_ATTRIBUTE{
         long id PK
@@ -63,28 +63,28 @@ erDiagram
         long subscription_id FK
     }
 
-    USER_VALUE }|--|{ USER : "n-n"
+    USER_VALUE }|--|{ USER : ""
     USER_VALUE{
         long id PK
         long user_id FK
         long attribute_id FK
         varchar value
     }
-    USER_VALUE }|--|{ USER_ATTRIBUTE : "n-n"
+    USER_VALUE }|--|{ USER_ATTRIBUTE : ""
 
     USER_ATTRIBUTE{
         long id PK
         string value
     }
 
-    CONTENT_VALUE }|--|{ CONTENT : "n-1 o n-n"
+    CONTENT_VALUE }|--|{ CONTENT : ""
     CONTENT_VALUE{
         long id PK
         long attribute_id FK
         long content_id FK
         varchar value
     }
-    CONTENT_VALUE }|--|{ CONTENT_ATTRIBUTE : "1-n o n-n"
+    CONTENT_VALUE }|--|{ CONTENT_ATTRIBUTE : ""
 
     USER ||--|{ SUBSCRIPTION : ""
     SUBSCRIPTION{
