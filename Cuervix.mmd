@@ -84,6 +84,7 @@ erDiagram
         long content_id FK
         varchar value
     }
+
     CONTENT_VALUE }|--|{ CONTENT_ATTRIBUTE : ""
 
     USER ||--|{ SUBSCRIPTION : ""
@@ -91,13 +92,27 @@ erDiagram
         long id PK
         long subscription_type_id FK
         long subscription_status_id FK
-
+        Date activation_date
+        Date expire_date
     }
 
-    SUBSCRIPTION ||--|{ SUBSCRIPTION_STATUS : ""
     SUBSCRIPTION_STATUS{
         long id PK
         string value
+    }
+
+    SUBSCRIPTION_VALUE{
+        long id PK
+        long subscription_id FK
+        string value
+    }
+    SUBSCRIPTION_VALUE }|--|| SUBSCRIPTION : ""
+
+    SUBSCRIPTION_VALUE }|--|| SUBSCRIPTION_REQUIREMENT : ""
+    SUBSCRIPTION_TYPE }|--|| SUBSCRIPTION_REQUIREMENT : ""
+    SUBSCRIPTION_REQUIREMENT{
+        long subscription_type_id PK, FK
+        long subscription_value_id PK, FK
     }
 
     SUBSCRIPTION ||--|{ SUBSCRIPTION_TYPE : ""
@@ -106,6 +121,24 @@ erDiagram
         string name
         int quantity
         long content_limit_id FK
+    }
+    SUBSCRIPTION ||--|{ SUBSCRIPTION_STATUS : ""
+
+    SUBSCRIPTION_ACTION_BY_USER{
+        long id PK
+        long subscription_id FK
+        long action_id FK
+        long user_id FK
+        Date date
+    }
+
+    SUBSCRIPTION_ACTION_BY_USER ||--|| SUBSCRIPTION : ""
+    SUBSCRIPTION_ACTION_BY_USER ||--|{ SUBSCRIPTION_ACTION : ""
+    SUBSCRIPTION_ACTION_BY_USER ||--|| USER : ""
+
+    SUBSCRIPTION_ACTION{
+        long id PK
+        string name
     }
 
     CONTENT_LIMIT ||--|{ SUBSCRIPTION_TYPE : ""
@@ -139,6 +172,5 @@ erDiagram
         int progress_percentage
 
     }
-
 
 
