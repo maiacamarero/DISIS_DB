@@ -29,8 +29,8 @@ erDiagram
        String name
    }
 
-   ACADEMIC_UNIT ||--|{ STUDY_PLAN : ""
    CAREER ||--|{ STUDY_PLAN : ""
+   ACADEMIC_UNIT ||--|{ STUDY_PLAN : ""
    STUDY_PLAN{
        long id PK
        long career_id FK
@@ -42,9 +42,9 @@ erDiagram
        String value
    }
 
-   STUDY_PLAN }|--|{ ATTRIBUTES : ""
-   STUDY_PLAN_ATTRIBUTE }|--|{ ATTRIBUTES : ""
-   ATTRIBUTES{
+   STUDY_PLAN_ATTRIBUTE }|--|{ STUDY_PLAN_ATTRIBUTES : ""
+   STUDY_PLAN }|--|{ STUDY_PLAN_ATTRIBUTES : ""
+   STUDY_PLAN_ATTRIBUTES{
        long study_plan_id PK, FK
        long study_plan_id_attribute PK, FK
    }
@@ -69,6 +69,52 @@ erDiagram
        long study_plan_id PK, FK
        long requirement_id PK, FK
    }
+
+   REQUIREMENT ||--|{ REQUIREMENT_VALUE : ""
+   REQUIREMENT_VALUE{
+       long id PK
+       long requirement_id FK
+       String value
+   }
+
+   SUBJECT{
+       long id PK
+       String name
+   }
+
+   SUBJECT }|--|{ SUBJECT_REQUIREMENT : ""
+   REQUIREMENT }|--|{ SUBJECT_REQUIREMENT : ""
+   SUBJECT_REQUIREMENT{
+       long subject_id PK, FK
+       long requirement_id PK, FK
+   }
+
+   SUBJECT ||--|{ SUBJECT_VALUE : ""
+   REQUIREMENT }|--|{ SUBJECT_VALUE : ""
+   SUBJECT_VALUE{
+       long id PK
+       long subject_id FK
+       long requirement_id FK
+       String value
+   }
+
+   SUBJECT }|--|{ SUBJECT_STUDY_PLAN : ""
+   STUDY_PLAN }|--|{ SUBJECT_STUDY_PLAN : ""
+   SUBJECT_STUDY_PLAN{
+       long subject_id PK, FK
+       long study_plan_id PK, FK
+   }
+
+   SUBJECT ||--|| CORRELATION : ""
+   STUDY_PLAN ||--|{ CORRELATION : ""
+   SUBJECT ||--|| CORRELATION : ""
+   CORRELATION{
+       long id PK
+       long subject_id FK
+       long correlative_subject_id FK
+       long study_plan_id FK
+   }
+
 
 
 
