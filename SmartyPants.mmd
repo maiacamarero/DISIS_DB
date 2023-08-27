@@ -1,0 +1,74 @@
+---
+title: Smarty Pants
+---
+erDiagram
+
+   UNIVERSITY{
+       long id PK
+       String name
+   }
+
+   UNIVERSITY ||--|{ ACADEMIC_UNIT : ""
+   ACADEMIC_UNIT{
+       long id PK
+       long university_id FK
+       String name
+   }
+
+   ACADEMIC_UNIT ||--|{ CAREER : ""
+   CAREER{
+       long id PK
+       long academic_unit_id FK
+       long career_type_id FK
+       String name
+   }
+
+   CAREER ||--|| CAREER_TYPE : ""
+   CAREER_TYPE{
+       long id PK
+       String name
+   }
+
+   ACADEMIC_UNIT ||--|{ STUDY_PLAN : ""
+   CAREER ||--|{ STUDY_PLAN : ""
+   STUDY_PLAN{
+       long id PK
+       long career_id FK
+       long academic_unit_id FK
+   }
+
+   STUDY_PLAN_ATTRIBUTE{
+       long id PK
+       String value
+   }
+
+   STUDY_PLAN }|--|{ ATTRIBUTES : ""
+   STUDY_PLAN_ATTRIBUTE }|--|{ ATTRIBUTES : ""
+   ATTRIBUTES{
+       long study_plan_id PK, FK
+       long study_plan_id_attribute PK, FK
+   }
+
+   STUDY_PLAN }|--|{ STUDY_PLAN_VALUE : ""
+   STUDY_PLAN }|--|{ STUDY_PLAN_VALUE : ""
+   STUDY_PLAN_VALUE{
+       long id PK
+       long study_plan_id FK
+       long study_plan_attibute_id FK
+       String value
+   }
+
+   REQUIREMENT{
+       long id PK
+       String value
+   }
+
+   STUDY_PLAN }|--|{ STUDY_PLAN_REQUIREMENT : ""
+   REQUIREMENT }|--|{ STUDY_PLAN_REQUIREMENT : ""
+   STUDY_PLAN_REQUIREMENT{
+       long study_plan_id PK, FK
+       long requirement_id PK, FK
+   }
+
+
+

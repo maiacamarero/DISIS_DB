@@ -59,7 +59,7 @@ erDiagram
 
     USER{
         long id PK
-        string DNI
+        string DNI UK
         long subscription_id FK
     }
 
@@ -167,10 +167,16 @@ erDiagram
         long user_id FK
         long content_id FK
         long sub_content_id FK
+        long content_progress_id FK
         Date start_date
         Date final_date
-        int progress_percentage
+    }
 
+    HISTORY ||--|{ CONTENT_PROGRESS : ""
+    CONTENT_PROGRESS{
+        long id PK
+        long content_id FK
+        float progress
     }
 
 
