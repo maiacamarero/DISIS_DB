@@ -229,6 +229,21 @@ erDiagram
         String value
     }
 
+    SCHEDULE ||--|| TIME_SCHEDULE : ""
+    SCHEDULE{
+        long id PK
+        long time_schedule_id FK
+        Day day
+    }
+
+    TIME_SCHEDULE }|--|| DICTATION : ""
+    TIME_SCHEDULE{
+        long id PK
+        long dictation_id FK
+        Date start_time
+        Date end_time
+    }
+
 
 
 
