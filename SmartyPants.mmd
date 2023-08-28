@@ -23,7 +23,7 @@ erDiagram
        String name
    }
 
-   CAREER ||--|| CAREER_TYPE : ""
+   CAREER }|--|| CAREER_TYPE : ""
    CAREER_TYPE{
        long id PK
        String name
@@ -50,11 +50,11 @@ erDiagram
    }
 
    STUDY_PLAN }|--|{ STUDY_PLAN_VALUE : ""
-   STUDY_PLAN }|--|{ STUDY_PLAN_VALUE : ""
+   REQUIREMENT }|--|{ STUDY_PLAN_VALUE : ""
    STUDY_PLAN_VALUE{
        long id PK
        long study_plan_id FK
-       long study_plan_attibute_id FK
+       long requirement_id FK
        String value
    }
 
@@ -70,23 +70,23 @@ erDiagram
        long requirement_id PK, FK
    }
 
-   REQUIREMENT ||--|{ REQUIREMENT_VALUE : ""
-   REQUIREMENT_VALUE{
-       long id PK
-       long requirement_id FK
-       String value
-   }
+    SUBJECT }|--|{ SUBJECT_REQUIREMENT : ""
+    REQUIREMENT }|--|{ SUBJECT_REQUIREMENT : ""
+    SUBJECT_REQUIREMENT{
+        long subject_id PK, FK
+        long requirement_id PK, FK
+    }
+
+%%   REQUIREMENT ||--|{ REQUIREMENT_VALUE : ""
+%%   REQUIREMENT_VALUE{
+%%       long id PK
+%%       long requirement_id FK
+%%       String value
+%%   }
 
    SUBJECT{
        long id PK
        String name
-   }
-
-   SUBJECT }|--|{ SUBJECT_REQUIREMENT : ""
-   REQUIREMENT }|--|{ SUBJECT_REQUIREMENT : ""
-   SUBJECT_REQUIREMENT{
-       long subject_id PK, FK
-       long requirement_id PK, FK
    }
 
    SUBJECT ||--|{ SUBJECT_VALUE : ""
@@ -114,6 +114,120 @@ erDiagram
        long correlative_subject_id FK
        long study_plan_id FK
    }
+
+   EXAM{
+       long id PK
+       long exam_type_id FK
+       long dictation_id FK
+       String name
+       Date date
+   }
+
+   EXAM }|--|| EXAM_TYPE : ""
+   EXAM_TYPE{
+       long id PK
+       String name
+   }
+
+   EXAM }|--|| DICTATION : ""
+   DICTATION{
+       long id PK
+       int period
+       int year
+   }
+
+   DICTATION }|--|{ DICTATION_SUBJECT : ""
+   SUBJECT }|--|{ DICTATION_SUBJECT : ""
+   DICTATION_SUBJECT{
+       long dictation_id PK, FK
+       long subject_id PK, FK
+   }
+
+   PEOPLE_ATTRIBUTE{
+       long id PK
+       String value
+   }
+
+   STUDENT{
+       long id PK
+       long person_id UK
+   }
+
+   STUDENT }|--|{ STUDENT_ATTRIBUTE : ""
+   PEOPLE_ATTRIBUTE }|--|{ STUDENT_ATTRIBUTE : ""
+   STUDENT_ATTRIBUTE{
+       long student_id PK, FK
+       long people_attribute_id PK, FK
+   }
+
+   STUDENT_ATTRIBUTE_VALUE }|--|| STUDENT : ""
+   STUDENT_ATTRIBUTE_VALUE }|--|| STUDENT_ATTRIBUTE : ""
+   STUDENT_ATTRIBUTE_VALUE{
+       long id PK
+       long student_attribute_id FK
+       long student_id FK
+       String value
+   }
+
+   ASSIGNED_STUDY_PLAN }|--|{ STUDENT : ""
+   ASSIGNED_STUDY_PLAN }|--|{ STUDY_PLAN : ""
+   ASSIGNED_STUDY_PLAN{
+       long student_id PK, FK
+       long study_plan_id PK, FK
+   }
+
+    TEACHER ||--|| DICTATION : ""
+    TEACHER }|--|| TEACHER_TYPE : ""
+    TEACHER{
+        long id PK
+        long person_id UK
+        long dictation_id FK
+        long teacher_type_id FK
+    }
+
+    TEACHER_TYPE{
+        long id PK
+        String name
+    }
+
+    TEACHER }|--|{ TEACHER_ATTRIBUTE : ""
+    PEOPLE_ATTRIBUTE }|--|{ TEACHER_ATTRIBUTE : ""
+    TEACHER_ATTRIBUTE{
+        long teacher_id PK, FK
+        long people_attribute_id PK, FK
+    }
+
+    TEACHER_ATTRIBUTE_VALUE }|--|| TEACHER : ""
+    TEACHER_ATTRIBUTE_VALUE }|--|| TEACHER_ATTRIBUTE : ""
+    TEACHER_ATTRIBUTE_VALUE{
+        long id PK
+        long teacher_attribute_id FK
+        long teacher_id FK
+        String value
+    }
+
+    ADMIN_STAFF ||--|| ACADEMIC_UNIT : ""
+    ADMIN_STAFF{
+        long id PK
+        long person_id UK
+        long academic_unit_id FK
+    }
+
+    ADMIN_STAFF }|--|{ ADMIN_STAFF_ATTRIBUTE : ""
+    PEOPLE_ATTRIBUTE }|--|{ ADMIN_STAFF_ATTRIBUTE : ""
+    ADMIN_STAFF_ATTRIBUTE{
+        long admin_staff_id PK, FK
+        long admin_staff_attribute_id PK, FK
+    }
+
+    ADMIN_STAFF_ATTRIBUTE_VALUE }|--|| ADMIN_STAFF : ""
+    ADMIN_STAFF_ATTRIBUTE_VALUE }|--|| ADMIN_STAFF_ATTRIBUTE : ""
+    ADMIN_STAFF_ATTRIBUTE_VALUE{
+        long id PK
+        long admin_staff_attribute_id FK
+        long admin_staff_id FK
+        String value
+    }
 
 
 
