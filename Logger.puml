@@ -1,0 +1,57 @@
+@startuml
+
+title: Logging - 14/09
+
+interface Logger{
+    + event log(event)
+}
+
+class ConsoleLogger implements Logger{
+    + event log(event)
+}
+
+class SilentLogger implements Logger{
+    + event log(event)
+}
+
+class FileLogger implements Logger{
+    + event log(event)
+}
+
+class HTTPLogger implements Logger{
+    + event log(event)
+}
+
+class DBLogger implements Logger{
+    + event log(event)
+}
+
+class MultiLogger implements Logger{
+    + event log(event)
+}
+
+abstract class MapperLogger implements Logger{
+    + event log(event)
+}
+
+class ObfuscateLogger extends MapperLogger{
+    + analyze(event)
+    + event log(event)
+}
+
+class ContextLogger extends MapperLogger{
+    + event log(event)
+}
+
+class SeverityFilterLogger implements Logger{
+    + event log(event)
+}
+
+class MaiaLogger implements Logger{
+    - HTTPLogger
+    - RedLogger
+    + event log(event)
+}
+
+
+@enduml
