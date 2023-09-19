@@ -1,0 +1,92 @@
+@startuml
+
+'¿De quién es responsabilidad saber cuáles piezas están activas y cuáles no, board o game?'
+
+class Game{
+    Board board
+    List<Piece> activePieces
+    List<Piece> inactivePieces
+}
+
+'placePiece() puede devolver nada o la posición donde la puso'
+Board <-- Piece
+Board <-- Position
+class Board{
+    int size
+    List<Piece> pieces
+    List<Position> positions
+    void fillBoard()
+    placePiece()
+}
+
+enum PieceType{
+    KING,
+    ROOK,
+    BISHOP,
+    QUEEN,
+    KNIGHT,
+    PAWN
+}
+
+interface Piece{
+    Position makeMovement()
+}
+
+class King implements Piece{
+    PieceType type
+    List<Rule> kingRules
+    Position makeMovement()
+}
+
+class Rook implements Piece{
+    PieceType type
+    List<Rule> rookRules
+    Position makeMovement()
+}
+
+class Bishop implements Piece{
+    PieceType type
+    List<Rule> bishopRules
+    Position makeMovement()
+}
+
+class Queen implements Piece{
+    PieceType type
+    List<Rule> queenRules
+    Position makeMovement()
+}
+
+class Knight implements Piece{
+    PieceType type
+    List<Rule> knightRules
+    Position makeMovement()
+}
+
+class Pawn implements Piece{
+    PieceType type
+    List<Rule> pawnRules
+    Position makeMovement()
+}
+
+class Position{
+    int x
+    int y
+
+}
+
+class Movement{
+
+}
+
+interface Rule{
+    move()
+}
+
+'Como rules puedo tener los movimientos genéricos o las rules específicas por pieza'
+'aaaaa moveForward() puede ser un tipo de movimiento que puede ser utilizado por las reglas?
+'todo: para pensar'
+class moveForward() implements Rule{
+
+}
+
+@enduml
